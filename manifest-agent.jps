@@ -1,0 +1,53 @@
+type: update
+version: 1.4
+name: Rudder agent add-on
+categories: ["apps/dev-and-admin-tools"]
+displayName: Rudder agent Add-on
+homepage: nc
+logo: none
+description: |
+ Install Rudder agent in a node to send metrics to a Rudder server
+
+settings:
+  fields:
+  - type: string
+    name: RUDDER_SERVER_IP
+    caption: Rudder server IP
+    required: true
+    placeholder: 10.10.10.10
+  - type: list
+    name: NODE_TYPE
+    caption: Node type
+    default: cp
+    editable: true
+    values:
+      bl: bl
+      cp: cp
+      cache: cache
+      sqldb: sqldb
+      nosqldb: nosqldb
+      storage: storage
+      vps: vps
+      build: build
+      centos7: centos7
+
+onInstall:
+  - log: Install & configure Rudder agent
+  - cmd[${settings.NODE_TYPE}]:
+     - rpm --import https://www.rudder-project.org/rpm-repos/rudder_rpm_key.pub
+     - echo -e '[Rudder_4.2]\nname=Rudder 4.1 EL repository\nbaseurl=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/\ngpgcheck=1\ngpgkey=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/repodata/repomd.xml.key' > /etc/yum.repos.d/rudder.repo
+     - yum install -y rudder-agent
+     - echo ${settings.RUDDER_SERVER_IP} > /var/rudder/cfengine-community/policy_server.dat
+    sayYes: true
+    user: root
+  
+  - log: Start Rudder agent
+  - cmd[${settings.NODE_TYPE}]:
+      - systemctl enable rudder
+      - systemctl start rudder
+      - rudder agent inventory
+    user: root
+
+success: |
+  Rudder agent has been installed and send metrics to ${settings.RUDDER_SERVER_IP}.
+

@@ -1,0 +1,33 @@
+type: install
+version: 1.4
+name: Rudder
+categories: ["apps/dev-and-admin-tools"]
+displayName: Rudder
+homepage: http://www.rudder-project.org/
+logo: http://www.rudder-project.org/site/wp-content/uploads/2016/10/rudder-logo-RP-smaller.png
+description: Open Source Automation & Compliance 
+ssl: true
+
+nodes:
+  - nodeType: centos7
+    displayName: Rudder
+    count: 1
+    cloudlets: 16
+    extip: true
+    volumes:
+      - /opt/rudder
+      - /var/rudder
+
+onInstall:
+  - log: Install Rudder
+  - cmd[centos7]:
+    - rpm --import https://www.rudder-project.org/rpm-repos/rudder_rpm_key.pub
+    - echo -e '[Rudder_4.2]\nname=Rudder 4.1 EL repository\nbaseurl=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/\ngpgcheck=1\ngpgkey=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/repodata/repomd.xml.key' > /etc/yum.repos.d/rudder.repo
+    - yum install -y rudder-server-root
+    - /opt/rudder/bin/rudder-init yes 10.0.0.0/8 < /dev/null
+    sayYes: true
+
+success: | 
+  Rudder has been installed. It will be accessible on [https://${nodes.centos7.first.extIP[0]}/rudder](https://${nodes.centos7.first.extIP[0]}/rudder)
+  
+  Use this IP to configure a new Rudder agent installation: `${nodes.centos7.first.intIP}`.
