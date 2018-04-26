@@ -22,7 +22,7 @@ onInstall:
   - log: Install Rudder
   - cmd[centos7]:
     - rpm --import https://www.rudder-project.org/rpm-repos/rudder_rpm_key.pub
-    - echo -e '[Rudder_4.2]\nname=Rudder 4.1 EL repository\nbaseurl=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/\ngpgcheck=1\ngpgkey=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/repodata/repomd.xml.key' > /etc/yum.repos.d/rudder.repo
+    - echo -e '[Rudder_4.3]\nname=Rudder 4.3 EL repository\nbaseurl=http://www.rudder-project.org/rpm-4.3/RHEL_$releasever/\ngpgcheck=1\ngpgkey=http://www.rudder-project.org/rpm-4.3/RHEL_$releasever/repodata/repomd.xml.key' > /etc/yum.repos.d/rudder.repo
     - yum install -y rudder-server-root
     - /opt/rudder/bin/rudder-init yes 10.0.0.0/8 < /dev/null
     sayYes: true
