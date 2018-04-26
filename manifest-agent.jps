@@ -43,9 +43,9 @@ onInstall:
   
   - log: Start Rudder agent
   - cmd[${settings.NODE_TYPE}]:
-      - systemctl enable rudder
-      - systemctl start rudder
+      - service rudder-agent start
       - rudder agent inventory
+      - rudder agent run
     user: root
 
 success: |
