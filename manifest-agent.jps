@@ -39,7 +39,7 @@ onInstall:
      - yum install -y rsyslog rudder-agent
      - echo ${settings.RUDDER_SERVER_IP} > /var/rudder/cfengine-community/policy_server.dat
      - sed -i '64i\-A INPUT -m state -s ${settings.RUDDER_SERVER_IP} -p tcp -j ACCEPT' /etc/sysconfig/iptables
-     - sed -i '65i\-A INPUT -m state -s ${settings.RUDDER_SERVER_IP} -p tcp -j ACCEPT' /etc/sysconfig/iptables
+     - sed -i '65i\-A INPUT -m state -s ${nodes.centos7.extips} -p tcp -j ACCEPT' /etc/sysconfig/iptables
     sayYes: true
     user: root
   
