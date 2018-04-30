@@ -25,6 +25,7 @@ onInstall:
     - echo -e '[Rudder_4.3]\nname=Rudder 4.3 EL repository\nbaseurl=http://www.rudder-project.org/rpm-4.3/RHEL_$releasever/\ngpgcheck=1\ngpgkey=http://www.rudder-project.org/rpm-4.3/RHEL_$releasever/repodata/repomd.xml.key' > /etc/yum.repos.d/rudder.repo
     - yum install -y rudder-server-root
     - /opt/rudder/bin/rudder-init yes 10.0.0.0/8 < /dev/null
+    - sed -i '64i\-A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT' /etc/sysoncifg/iptables
     sayYes: true
 
 success: | 
