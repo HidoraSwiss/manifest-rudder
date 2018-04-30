@@ -3,7 +3,7 @@ version: 1.4
 name: Rudder agent add-on
 categories: ["apps/dev-and-admin-tools"]
 displayName: Rudder agent Add-on
-homepage: nc
+homepage: http://www.rudder-project.org
 logo: none
 description: |
  Install Rudder agent in a node to send metrics to a Rudder server
@@ -36,7 +36,7 @@ onInstall:
   - cmd[${settings.NODE_TYPE}]:
      - rpm --import https://www.rudder-project.org/rpm-repos/rudder_rpm_key.pub
      - echo -e '[Rudder_4.3]\nname=Rudder 4.3 EL repository\nbaseurl=http://www.rudder-project.org/rpm-4.3/RHEL_$releasever/\ngpgcheck=1\ngpgkey=http://www.rudder-project.org/rpm-4.2/RHEL_$releasever/repodata/repomd.xml.key' > /etc/yum.repos.d/rudder.repo
-     - yum install -y rudder-agent
+     - yum install -y rsyslog rudder-agent
      - echo ${settings.RUDDER_SERVER_IP} > /var/rudder/cfengine-community/policy_server.dat
     sayYes: true
     user: root
