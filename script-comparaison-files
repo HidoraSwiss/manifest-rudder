@@ -3,7 +3,6 @@
 
 hosts=/etc/hosts
 iptables=/etc/sysconfig/iptables
-sysctl=/etc/sysctl.conf
-limits=/etc/security/limits.conf
 
-cat $HOSTS
+
+
