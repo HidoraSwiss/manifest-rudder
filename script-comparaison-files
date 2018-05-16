@@ -1,3 +1,9 @@
 
 #!/bin/bash
-touch /root/test
+
+hosts=/etc/hosts
+iptables=/etc/sysconfig/iptables
+limits=/etc/security/limits.conf
+
+
+cat $HOSTS
