@@ -1,8 +1,40 @@
-
 #!/bin/bash
 
-hosts=/etc/hosts
-iptables=/etc/sysconfig/iptables
+hosts=/etc/hosts 
+iptables=/etc/sysconfig/iptables 
 
+####### hosts ##########
 
+if [ -f /root/rudder-monitor-files/hosts-ref ]
+then
+echo  " `date ` : file hosts-ref exist" >> /root/rudder-monitor-files/logs
+else
+cp $hosts /root/rudder-monitor-files/hosts-ref
+echo "  `date ` : create file hosts-ref" >> /root/rudder-monitor-files/logs
+fi
 
+if [ `diff $hosts /root/rudder-monitor-files/hosts-ref >/dev/null` ]
+then
+echo -e  " `date ` : file hosts are the same" >> /root/rudder-monitor-files/logs 
+else
+cp -f /root/rudder-monitor-files/hosts-ref $hosts
+echo -e " `date ` : file hosts are NOT the same" >> /root/rudder-monitor-files/logs
+fi
+
+######## iptables ########
+
+if [ -f /root/rudder-monitor-files/iptables-ref ]
+then 
+echo " `date ` : file iptables-ref exist" >> /root/rudder-monitor-files/logs
+else 
+cp $iptables /root/rudder-monitor-files/iptables-ref 
+echo " `date ` : create file iptables-ref" >> /root/rudder-monitor-files/logs 
+fi
+
+if [ `diff $iptables /root/rudder-monitor-files/iptables-ref >/dev/null` ]
+then 
+echo -e " `date ` : file iptables are the same \n" >> /root/rudder-monitor-files/logs
+else
+cp -f /root/rudder-monitor-files/iptables-ref $iptables
+echo -e " `date ` : file hosts are NOT the same \n" >> /root/rudder-monitor-files/logs
+fi
