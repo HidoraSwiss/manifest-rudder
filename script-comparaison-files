@@ -15,10 +15,10 @@ fi
 
 if [ `diff $hosts /root/rudder-monitor-files/hosts-ref >/dev/null` ]
 then
-echo -e  " `date ` : file hosts are the same" >> /root/rudder-monitor-files/logs 
+echo -e  " `date ` : file hosts are NOT the same" >> /root/rudder-monitor-files/logs 
 else
 cp -f /root/rudder-monitor-files/hosts-ref $hosts
-echo -e " `date ` : file hosts are NOT the same" >> /root/rudder-monitor-files/logs
+echo -e " `date ` : file hosts are the same" >> /root/rudder-monitor-files/logs
 fi
 
 ######## iptables ########
@@ -33,8 +33,8 @@ fi
 
 if [ `diff $iptables /root/rudder-monitor-files/iptables-ref >/dev/null` ]
 then 
-echo -e " `date ` : file iptables are the same \n" >> /root/rudder-monitor-files/logs
+echo -e " `date ` : file iptables are NOT the same \n" >> /root/rudder-monitor-files/logs
 else
 cp -f /root/rudder-monitor-files/iptables-ref $iptables
-echo -e " `date ` : file  iptables are NOT the same \n" >> /root/rudder-monitor-files/logs
+echo -e " `date ` : file  iptables are the same \n" >> /root/rudder-monitor-files/logs
 fi
