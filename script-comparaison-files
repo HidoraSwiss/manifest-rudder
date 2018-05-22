@@ -36,5 +36,5 @@ then
 echo -e " `date ` : file iptables are the same \n" >> /root/rudder-monitor-files/logs
 else
 cp -f /root/rudder-monitor-files/iptables-ref $iptables
-echo -e " `date ` : file hosts are NOT the same \n" >> /root/rudder-monitor-files/logs
+echo -e " `date ` : file  iptables are NOT the same \n" >> /root/rudder-monitor-files/logs
 fi
