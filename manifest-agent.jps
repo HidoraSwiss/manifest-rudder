@@ -21,19 +21,18 @@ settings:
     default: cp
     editable: true
     values:
-      bl: bl
+      bl: load balancer
       cp: cp
       cache: cache
       sqldb: sqldb
       nosqldb: nosqldb
       storage: storage
-      vps: vps
       build: build
       centos7: centos7
       ubuntu16-04: Ubuntu 16
 
 onInstall:
-  if (settings.NODE_TYPE == 'centos7'):
+  if (settings.NODE_TYPE != 'ubuntu16-04'):
   - log: Install & configure Rudder agent
   - cmd[${settings.NODE_TYPE}]:
      - rpm --import https://www.rudder-project.org/rpm-repos/rudder_rpm_key.pub
