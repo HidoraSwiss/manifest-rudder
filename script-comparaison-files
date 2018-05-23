@@ -7,10 +7,10 @@ iptables=/etc/sysconfig/iptables
 
 if [ -f /root/rudder-monitor-files/hosts-ref ]
 then
-echo  " `date ` : file hosts-ref exist" >> /root/rudder-monitor-files/logs
+echo  " `date ` : file hosts-ref exist" > /root/rudder-monitor-files/logs
 else
 cp $hosts /root/rudder-monitor-files/hosts-ref
-echo "  `date ` : create file hosts-ref" >> /root/rudder-monitor-files/logs
+echo "  `date ` : create file hosts-ref" > /root/rudder-monitor-files/logs
 fi
 
 if [ `diff $hosts /root/rudder-monitor-files/hosts-ref >/dev/null` ]
